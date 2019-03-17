@@ -33,3 +33,14 @@ int WriteReg(int SlaveAddress, int Reg, int WriteValue){
   Wire.write(WriteValue);
   Wire.endTransmission();
 }
+
+int SetDefault(){
+  WriteReg(90,1,0);
+  WriteReg(90,2,0);
+  WriteReg(90,3,136);
+  WriteReg(90,4,153);
+  WriteReg(90,5,146);
+  WriteReg(90,6,0);
+  WriteReg(90,7,0);
+  WriteReg(90,8,0);
+}
