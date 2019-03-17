@@ -15,3 +15,21 @@
 #define SCL_pin 19
 #define Clock_freq 100000 //100 khz
 #define PMIC_addr 90      //7bit address of PMIC
+
+//Read & Write Register Functions
+int ReadReg(int SlaveAddress, int Reg, int NumBytesRequest){
+  byte RegRead;
+  Wire.beginTransmission(SlaveAddress);
+  Wire.write(Reg);
+  Wire.requestFrom(SlaveAddress,NumBytesRequest);
+  RegRead = Wire.read();
+  Wire.endTransmission();
+  Serial.println(RegRead);
+}
+
+int WriteReg(int SlaveAddress, int Reg, int WriteValue){
+  Wire.beginTransmission(SlaveAddress);
+  Wire.write(Reg);
+  Wire.write(WriteValue);
+  Wire.endTransmission();
+}
