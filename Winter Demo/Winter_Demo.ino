@@ -63,6 +63,12 @@ void loop(void)
   ble.readline();
 
 
+
+
+  //use a large switch statement here for the dynamic massage patterns
+  //maybe use 3 bytes: [Category,Motor,Speed] ie 0x01 0xA5 0xC5
+
+  //template for receiving a particular command
   if (strcmp(ble.buffer, "OK") == 0) {
     // no data
     return;
@@ -72,17 +78,23 @@ void loop(void)
 
   // Some data was found, its in the buffer
   Serial.print(F("[Recv] ")); Serial.println(ble.buffer);
-  Serial.println(ble.buffer);
+  //Serial.println(ble.buffer);
+
+
+  //catches dummy command from android app
+  if(strcmp(ble.buffer,"FF")){
+    String b1 = ble.buffer;
+    Serial.println(b1);
+    Serial.println("FF Received!");
+  }
  
      if (strcmp(ble.buffer, "START") == 0) {
       Serial.println("Start Recived");
 //      Drive_motors();
 //      startFlag = 1;
- 
       analogWrite(R6, 190);
       delay(1000);
-//      analogWrite(R6, 0);
-//      delay(1000);
+
      }
       
 
