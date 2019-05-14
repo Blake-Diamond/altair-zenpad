@@ -77,15 +77,23 @@ void loop(void)
 
 
   // Some data was found, its in the buffer
-  Serial.print(F("[Recv] ")); Serial.println(ble.buffer);
+  Serial.print(("[Recv] ")); //Serial.println(ble.buffer);
   //Serial.println(ble.buffer);
 
 
   //catches dummy command from android app
-  if(strcmp(ble.buffer,"FF")){
-    String b1 = ble.buffer;
-    Serial.println(b1);
+  if(ble.buffer[0] == 0xFF){
+    for (int i = 0; i < sizeof(ble.buffer); i++) {
+      Serial.println(ble.buffer[i],HEX);
+      if (ble.buffer[i] == 0x12) {
+        break;
+      }
+
+      
+    }
     Serial.println("FF Received!");
+    
+    Serial.println(ble.buffer[2],HEX);
   }
  
      if (strcmp(ble.buffer, "START") == 0) {
@@ -120,7 +128,8 @@ void Setup_bluetooth(void)
 
   while (!Serial);  // required for Flora & Micro
   delay(500);
-
+  
+//  Serial.begin(9600);
   Serial.begin(115200);
   Serial.println(F("Adafruit Bluefruit Command Mode Example"));
   Serial.println(F("---------------------------------------"));
