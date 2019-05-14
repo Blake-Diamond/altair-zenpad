@@ -1,0 +1,24 @@
+{
+    "Header": {
+        "Comment": "All values are metric (mm)",
+        "CreationDate": "2019-05-06T21:19:27Z",
+        "GenerationSoftware": {
+            "Application": "EAGLE",
+            "Vendor": "Autodesk",
+            "Version": "9.3.1"
+        },
+        "Part": "Single"
+    },
+    "Overall": {
+        "BoardThickness": 0.772169,
+        "LayerNumber": 4,
+        "Name": {
+            "ProjectId": "Massage_Pad_Main"
+        },
+        "Owner": "Evan Blasband <evanblasband@ucsb.edu>",
+        "Size": {
+            "X": 79.015241,
+            "Y": 99.553019
+        }
+    }
+}
