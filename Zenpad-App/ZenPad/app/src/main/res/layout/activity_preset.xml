@@ -97,7 +97,7 @@
         app:layout_constraintHorizontal_bias="0.975"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/stopButton"
-        app:srcCompat="@drawable/settingsCog"
+        app:srcCompat="@drawable/settingscog"
         tools:srcCompat="@android:drawable/ic_menu_preferences"
         android:onClick="toSettings1"/>
 

@@ -22,8 +22,8 @@
 
     <include
         layout="@layout/content_main"
-        android:layout_height="515dp"
-        android:layout_width="" />
+        android:layout_width="400dp"
+        android:layout_height="599dp" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
@@ -31,7 +31,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@drawable/settingsCog"
+        app:srcCompat="@drawable/settingscog"
         android:onClick="toSettings"/>
 
 </android.support.design.widget.CoordinatorLayout>

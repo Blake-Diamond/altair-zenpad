@@ -29,13 +29,12 @@ import android.widget.TextView;
 
 import java.util.UUID;
 
-public class ActivitySettings extends AppCompatActivity {
+public class Settings3 extends AppCompatActivity {
 
 
+    final Intent settings3Intent = getIntent();
 
-    final Intent settings_Intent = getIntent();
-
-    public static String TAG = "BT-DEBUG";
+    public String TAG = "massage";
     BluetoothManager btManager;
     BluetoothAdapter btAdapter;
     BluetoothLeScanner btScanner;
@@ -46,14 +45,14 @@ public class ActivitySettings extends AppCompatActivity {
     String address; //Bluetooth MAC Address of our device
     private final static int REQUEST_ENABLE_BT = 1;
     private static final int PERMISSION_REQUEST_COARSE_LOCATION = 1;
-    BluetoothGatt gatt;
+    public static BluetoothGatt gatt;
     //BluetoothGattCallback gattCallback = new BluetoothGattCallback();
 
     //Imported from the Bluefruit app
     // Constants
-    private static final UUID kUartServiceUUID = UUID.fromString("6e400001-b5a3-f393-e0a9-e50e24dcca9e");
-    private static final UUID kUartTxCharacteristicUUID = UUID.fromString("6e400002-b5a3-f393-e0a9-e50e24dcca9e");
-    private static final UUID kUartRxCharacteristicUUID = UUID.fromString("6e400003-b5a3-f393-e0a9-e50e24dcca9e");
+    public static final UUID kUartServiceUUID = UUID.fromString("6e400001-b5a3-f393-e0a9-e50e24dcca9e");
+    public static final UUID kUartTxCharacteristicUUID = UUID.fromString("6e400002-b5a3-f393-e0a9-e50e24dcca9e");
+    public static final UUID kUartRxCharacteristicUUID = UUID.fromString("6e400003-b5a3-f393-e0a9-e50e24dcca9e");
 
     private static final int kUartTxMaxBytes = 20;
     public static final int kUartReplyDefaultTimeout = 2000;       // in millis
@@ -65,21 +64,16 @@ public class ActivitySettings extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        Log.d(TAG,"onCreate of Settings");
+        Log.d(TAG,"OnCreate of settings3");
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_settings3);
 
-        Button startScanningButton;
-        Button stopScanningButton;
-        TextView peripheralTextView;
-
-        peripheralTextView = (TextView) findViewById(R.id.PeripheralTextView);
+        peripheralTextView = (TextView) findViewById(R.id.newDeviceList);
         if(peripheralTextView == null){Log.d(TAG,"textview null");}
         peripheralTextView.setMovementMethod(new ScrollingMovementMethod());
         //not necessary because we are going to use a different UI
 
-        startScanningButton = (Button) findViewById(R.id.StartScanButton);
+        startScanningButton = (Button) findViewById(R.id.scanButton);
 
         if(startScanningButton == null){Log.d(TAG,"scanning button null");}
         startScanningButton.setOnClickListener(new View.OnClickListener() {
@@ -88,7 +82,7 @@ public class ActivitySettings extends AppCompatActivity {
             }
         });
 
-        stopScanningButton = (Button) findViewById(R.id.StopScanButton);
+        stopScanningButton = (Button) findViewById(R.id.stopScanButton);
         if(stopScanningButton == null){Log.d(TAG,"stop scanning button null");}
         stopScanningButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -123,7 +117,6 @@ public class ActivitySettings extends AppCompatActivity {
             });
             builder.show();
         }
-
     }
 
 
@@ -168,9 +161,6 @@ public class ActivitySettings extends AppCompatActivity {
 
             //display our device name
             Log.d(TAG, "Device Address: " + result.getDevice().getAddress());
-
-            // old address: "D2:48:D2:3B:E0:34"
-            // newer address "C7:08:5D:51:7E:03"
             if(result.getDevice().getAddress().matches("C7:08:5D:51:7E:03")) {
                 address = result.getDevice().getAddress(); // this is what we will need to
                 Log.d(TAG, "Device Name: " + address);
@@ -332,7 +322,7 @@ public class ActivitySettings extends AppCompatActivity {
         byte[] value = new byte[1];
         value[0] = (byte) (0xFF);
 
-        byte[] bytes = {(byte)(0xFF) ,(byte)(0xFD), (byte)(0xFE)};
+        byte[] bytes = {(byte)(0xFF) ,(byte)(0xFD), (byte)(0xFE) ,  (byte)(0x12)};
         byte[] newCMD = new byte[3];
 
         // untested below
@@ -340,7 +330,7 @@ public class ActivitySettings extends AppCompatActivity {
         // set motor
         // set
 
-        charac.setValue(value);
+        charac.setValue(bytes);
         Log.d(TAG,"Value sent to serial monitor:");
         boolean status = gatt.writeCharacteristic(charac);
         return status;
@@ -371,4 +361,9 @@ public class ActivitySettings extends AppCompatActivity {
     public void stopScan(View view){
         stopScanning();
     }
+
+    public void toHome1(View view){
+        Intent intentHome = new Intent(Settings3.this, MainActivity.class);
+        startActivity(intentHome);
     }
+}

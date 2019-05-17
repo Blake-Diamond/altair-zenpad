@@ -15,13 +15,13 @@
         android:layout_height="52dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="56dp"
-        android:layout_marginBottom="88dp"
+        android:layout_marginBottom="104dp"
+        android:onClick="toCustom"
         android:text="Custom Massage"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.772"
-        app:layout_constraintStart_toEndOf="@+id/buttonPreset"
-        android:onClick="toCustom"/>
+        app:layout_constraintHorizontal_bias="0.833"
+        app:layout_constraintStart_toEndOf="@+id/buttonPreset" />
 
     <ImageView
         android:id="@+id/logoZenPad"
@@ -33,11 +33,23 @@
         android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.517"
+        app:layout_constraintHorizontal_bias="0.507"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/ZenPad" />
+        app:layout_constraintVertical_bias="0.325"
+        app:srcCompat="@drawable/zenpad" />
+
+    <Button
+        android:id="@+id/testbutton"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="106dp"
+        android:layout_height="53dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginBottom="48dp"
+        android:text="TEST"
+        android:onClick="toSettingsTest"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/buttonPreset"
@@ -45,10 +57,10 @@
         android:layout_width="106dp"
         android:layout_height="53dp"
         android:layout_marginStart="64dp"
-        android:layout_marginBottom="88dp"
+        android:layout_marginBottom="104dp"
+        android:onClick="toPreset"
         android:text="Preset Massage"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:onClick="toPreset"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
