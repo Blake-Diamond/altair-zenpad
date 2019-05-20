@@ -49,10 +49,6 @@ void Set_pinsOutput() {
 
 
 void Drive_motors() {
-  // put your main code here, to run repeatedly:
-//array PWMspeed = [0, 255/2, 255*.75, 255];
-//while 1{
-//  for (int i =0; i=length(PWMspeed); i++){
 
     analogWrite(L1, 190);
     analogWrite(L2, 190);

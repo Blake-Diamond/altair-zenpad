@@ -14,6 +14,10 @@
   #include <SoftwareSerial.h>
 #endif
 
+int motor; //which motor we are controlling
+int massageRoutine;
+int intensity; //vibration intensity at a particular motor
+
  // Create the bluefruit object, either software serial...uncomment these lines
   SoftwareSerial bluefruitSS = SoftwareSerial(BLUEFRUIT_SWUART_TXD_PIN, BLUEFRUIT_SWUART_RXD_PIN);
 
@@ -62,54 +66,77 @@ void loop(void)
   ble.println("AT+BLEUARTRX");
   ble.readline();
 
-
-
-
-  //use a large switch statement here for the dynamic massage patterns
-  //maybe use 3 bytes: [Category,Motor,Speed] ie 0x01 0xA5 0xC5
-
   //template for receiving a particular command
   if (strcmp(ble.buffer, "OK") == 0) {
     // no data
     return;
   }
-  
-
 
   // Some data was found, its in the buffer
-  Serial.print(("[Recv] ")); //Serial.println(ble.buffer);
-  //Serial.println(ble.buffer);
+  Serial.print(("[Recv] ")); 
 
-
-  //catches dummy command from android app
-  if(ble.buffer[0] == 0xFF){
-    for (int i = 0; i < sizeof(ble.buffer); i++) {
-      Serial.println(ble.buffer[i],HEX);
-      if (ble.buffer[i] == 0x12) {
-        break;
-      }
-
-      
-    }
-    Serial.println("FF Received!");
-    
-    Serial.println(ble.buffer[2],HEX);
+  //Custom Massage
+  if(ble.buffer[0] == 0x01){
+      Serial.print("Custom Massage   ");
+      motor = ble.buffer[1];
+      intensity = ble.buffer[2];
+      Serial.print("Motor: ");
+      Serial.print(motor,HEX);
+      Serial.print("  Intensity (0-255): "); 
+      Serial.print(intensity);
+      Serial.println(" ");
   }
- 
-     if (strcmp(ble.buffer, "START") == 0) {
-      Serial.println("Start Recived");
-//      Drive_motors();
-//      startFlag = 1;
-      analogWrite(R6, 190);
-      delay(1000);
-
-     }
-      
-
-      if (strcmp(ble.buffer, "Stop") == 0) {
-      Serial.println("Stop Recived");
-      analogWrite(R6, 0);
+  //Preset Massage
+  else if(ble.buffer[0] == 0x02){
+      Serial.print("Preset Massage   ");
+      massageRoutine = ble.buffer[1];
+      intensity = ble.buffer[2];
+      Serial.print("Massage: ");
+      Serial.print(massageRoutine,HEX);
+      Serial.print("  Intensity (0-255): "); 
+      Serial.print(intensity);
+      Serial.println(" ");
   }
+  //Misc. info, currently unused
+  else if(ble.buffer[0] == 0x03){
+      Serial.println("Miscellanous");
+  }
+  //Default
+  else{
+      Serial.println("Unrecognized Command");
+  }
+  
+
+// DEPRECATED 
+//  //catches dummy command from android app
+//  if(ble.buffer[0] == 0xFF){
+//    for (int i = 0; i < sizeof(ble.buffer); i++) {
+//      Serial.println(ble.buffer[i],HEX);
+//      if (ble.buffer[i] == 0x12) {
+//        break;
+//      }
+//
+//      
+//    }
+//    Serial.println("FF Received!");
+//    
+//    Serial.println(ble.buffer[2],HEX);
+//  }
+// 
+//     if (strcmp(ble.buffer, "START") == 0) {
+//      Serial.println("Start Recived");
+////      Drive_motors();
+////      startFlag = 1;
+//      analogWrite(R6, 190);
+//      delay(1000);
+//
+//     }
+//      
+//
+//      if (strcmp(ble.buffer, "Stop") == 0) {
+//      Serial.println("Stop Recived");
+//      analogWrite(R6, 0);
+//  }
 
   
   ble.waitForOK();
