@@ -6,6 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".ActivityCustom">
 
+
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/floatingActionButtonC7"
         android:layout_width="36dp"
@@ -275,14 +277,15 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="28dp"
-        app:borderWidth="0dp"
         android:clickable="true"
         android:onClick="clickA1"
         app:backgroundTint="@color/colorPrimary"
+        app:borderWidth="0dp"
         app:layout_constraintBottom_toTopOf="@+id/seekBar2"
         app:layout_constraintEnd_toStartOf="@+id/floatingActionButtonB1"
         app:layout_constraintHorizontal_bias="0.37"
         app:layout_constraintStart_toStartOf="parent" />
+
 
     <Button
         android:id="@+id/stopButton2"
@@ -293,6 +296,7 @@
         android:layout_marginBottom="28dp"
         android:background="@android:color/holo_red_light"
         android:text="Stop"
+        android:onClick="stopButton"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.916"
@@ -307,6 +311,7 @@
         android:layout_marginBottom="28dp"
         android:background="@android:color/holo_green_light"
         android:text="Start"
+        android:onClick="startButton"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/stopButton"
         app:layout_constraintStart_toStartOf="parent" />
@@ -346,24 +351,14 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
-        android:onClick="toHome"
+        android:layout_marginBottom="8dp"
         android:clickable="true"
+        android:onClick="toHome"
+        app:layout_constraintBottom_toTopOf="@+id/floatingActionButtonA7"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.024"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/ic_menu_delete" />
-
-    <TextView
-        android:id="@+id/seekbarText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

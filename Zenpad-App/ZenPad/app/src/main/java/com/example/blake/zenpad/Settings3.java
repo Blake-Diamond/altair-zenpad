@@ -26,6 +26,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.UUID;
 
@@ -142,14 +143,16 @@ public class Settings3 extends AppCompatActivity {
                 Log.i(TAG, "OnServicesDiscovered = Success");
                 boolean test = writeCharacteristic(gatt);
 
-                if(test){Log.d(TAG,"test worked, check Teensy Serial Monitor");}
+                if(test){
+                    Log.d(TAG,"test worked, check Teensy Serial Monitor");
+                    Toast.makeText(getApplicationContext(),"Connected to Massage Pad",Toast.LENGTH_SHORT).show();
+                }
                 else{Log.d(TAG,"test did not work");}
             } else {
                 // failure
                 Log.i(TAG, "OnServicesDiscovered = Failure");
             }
         }
-
     };
 
 
@@ -173,9 +176,9 @@ public class Settings3 extends AppCompatActivity {
                     //boolean sentWorked = uartSend(xx,mUartTxCharacteristic, address);
                     boolean sentWorked = false;
                     boolean writeCharWorked = writeCharacteristic(gatt);
-                    if(sentWorked){Log.d(TAG,"UART SEND was actually successful");}
-                    else{Log.d(TAG,"UART SEND was unfortunately NOT successful");}
-                    if(writeCharWorked){Log.d(TAG,"writeCharacteristic was actually successful :)");}
+                    if(writeCharWorked){
+                        Log.d(TAG,"writeCharacteristic was actually successful :)");
+                    }
                     else{Log.d(TAG,"WriteCharacteristic was unfortunately NOT successful :(");}
 
                 }
@@ -325,13 +328,9 @@ public class Settings3 extends AppCompatActivity {
         byte[] bytes = {(byte)(0xFF) ,(byte)(0xFD), (byte)(0xFE) ,  (byte)(0x12)};
         byte[] newCMD = new byte[3];
 
-        // untested below
-        // setByteValue(newCMD,0xFF,0); //set mode
-        // set motor
-        // set
-
         charac.setValue(bytes);
         Log.d(TAG,"Value sent to serial monitor:");
+        Toast.makeText(this,"Connected to Massage Pad",Toast.LENGTH_SHORT).show();
         boolean status = gatt.writeCharacteristic(charac);
         return status;
     }

@@ -70,10 +70,4 @@ public class MainActivity extends AppCompatActivity {
         startActivity(settingsMassage);
     }
 
-    public void toSettingsTest(View view){
-        Log.d(TAG,"toSetting TEST");
-        Intent settingsTest = new Intent(MainActivity.this,Settings3.class);
-        startActivity(settingsTest);
-    }
-
 }

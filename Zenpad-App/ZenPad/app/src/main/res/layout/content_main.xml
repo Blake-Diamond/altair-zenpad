@@ -14,18 +14,21 @@
         android:layout_width="106dp"
         android:layout_height="52dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="56dp"
         android:layout_marginBottom="104dp"
         android:onClick="toCustom"
         android:text="Custom Massage"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.833"
-        app:layout_constraintStart_toEndOf="@+id/buttonPreset" />
+        app:layout_constraintHorizontal_bias="0.472"
+        app:layout_constraintStart_toEndOf="@+id/buttonPreset"
+        app:layout_constraintTop_toBottomOf="@+id/logoZenPad"
+        app:layout_constraintVertical_bias="0.888" />
 
     <ImageView
         android:id="@+id/logoZenPad"
-        android:layout_width="297dp"
+        android:layout_width="298dp"
         android:layout_height="336dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
@@ -33,34 +36,25 @@
         android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.507"
+        app:layout_constraintHorizontal_bias="0.225"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.325"
+        app:layout_constraintVertical_bias="0.32"
         app:srcCompat="@drawable/zenpad" />
-
-    <Button
-        android:id="@+id/testbutton"
-        style="@style/Widget.AppCompat.Button"
-        android:layout_width="106dp"
-        android:layout_height="53dp"
-        android:layout_marginStart="52dp"
-        android:layout_marginBottom="48dp"
-        android:text="TEST"
-        android:onClick="toSettingsTest"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/buttonPreset"
         style="@style/Widget.AppCompat.Button"
         android:layout_width="106dp"
         android:layout_height="53dp"
-        android:layout_marginStart="64dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="8dp"
         android:layout_marginBottom="104dp"
         android:onClick="toPreset"
         android:text="Preset Massage"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logoZenPad"
+        app:layout_constraintVertical_bias="1.0" />
 
 </android.support.constraint.ConstraintLayout>
