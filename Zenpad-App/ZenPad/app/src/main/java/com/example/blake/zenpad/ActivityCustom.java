@@ -136,7 +136,8 @@ public class ActivityCustom extends AppCompatActivity {
                 Log.d(TAG,"Stop value MI: " + motorIntensity + " / " + maxIntensityValue);
                 Log.d(TAG,"Progress value: " + progress_value + " / " + seek_bar.getMax());
                 Log.d(TAG,"Test1: " + test1 + " / " + maxIntensityValue);
-                //TODO: make function that updates intensity for motors that are already on
+                //TODO: Test this function
+                updateIntensity(motorIntensity);
 
             }
             }
@@ -173,7 +174,7 @@ public class ActivityCustom extends AppCompatActivity {
         return status;
     }
 
-    //TODO: make this work, find out how to change color of FAB
+    //TODO: figure out how to change FAB color
     public Boolean toggleButton(FloatingActionButton button, Boolean isToggledFUNC){
         if (isToggledFUNC) { //Turning motor on
             button.setBackgroundColor(Color.RED);
@@ -234,6 +235,32 @@ public class ActivityCustom extends AppCompatActivity {
                 writeCharacteristic(gatt,customCMD);
                 Log.d(TAG,"Motor: " + motor + " Intensity: " + motorIntensity);
                 isMotorOn[i] = false;
+            }
+        }
+    }
+
+    //TODO: test with massage pad
+    public void updateIntensity(byte Intensity){
+        customCMD[2] = Intensity;
+        for(int i=0;i<isMotorOn.length;i++){
+            if(!isMotorOn[i]) {
+                //Motor is ON
+                if(i <= 6){
+                    //Left Column
+                    motor = (byte) (i + 161);
+                }
+                else if(i>=7 && i<=13){
+                    //Center Column
+                    motor = (byte) (i + 170);
+                }
+                else{
+                    //Right Column
+                    motor = (byte) (i + 179);
+                }
+
+                customCMD[1] = motor; //assign motor
+                writeCharacteristic(gatt,customCMD);
+                Log.d(TAG,"Motor: " + motor + " Intensity: " + motorIntensity);
             }
         }
     }

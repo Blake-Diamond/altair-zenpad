@@ -26,6 +26,7 @@ public class ActivityPreset extends AppCompatActivity {
     int currentIntensityValue;
     int maxIntensityValue;
     int test1;
+    int currentMassage; //0 OFF, 1 Horizontal, 2 Vertical, 3 Starburst, 4 4th Pattern
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +52,7 @@ public class ActivityPreset extends AppCompatActivity {
 
     //Seekbar Handler - Range is from 0 - 100 before adjustment
     public void seekbarUpdate() {
-        seek_bar = (SeekBar) findViewById(R.id.seekBar2);
+        seek_bar = (SeekBar) findViewById(R.id.seekBar3);
         motorIntensity = (byte) (motorScale*seek_bar.getProgress() + motorOffset);
 
         Log.d(TAG,"SeekbarUpdate value: " + motorIntensity + " / " + seek_bar.getMax());
@@ -62,8 +63,8 @@ public class ActivityPreset extends AppCompatActivity {
                                                 public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                                                     progress_value = progress;
                                                     motorIntensity = (byte) (motorScale*seek_bar.getProgress() + motorOffset);
-                                                    Log.d(TAG,"Progress Change value: " + motorIntensity + " / " + seek_bar.getMax());
-                                                    Log.d(TAG,"Progress Change value: " + progress_value + " / " + seek_bar.getMax());
+                                                    //Log.d(TAG,"Progress Change value: " + motorIntensity + " / " + seek_bar.getMax());
+                                                    //Log.d(TAG,"Progress Change value: " + progress_value + " / " + seek_bar.getMax());
                                                 }
 
                                                 @Override
@@ -73,30 +74,15 @@ public class ActivityPreset extends AppCompatActivity {
 
                                                 @Override
                                                 public void onStopTrackingTouch(SeekBar seekBar) {
-                                                    //motorIntensity = (byte) (seek_bar.getProgress() + motorOffset);
                                                     currentIntensityValue = motorScale*seekBar.getProgress() + 50;
                                                     maxIntensityValue = motorScale*seekBar.getMax()+50;
                                                     motorIntensity = (byte) (currentIntensityValue);
-                                                    Log.d(TAG,"Stop value MI: " + motorIntensity + " / " + maxIntensityValue);
-                                                    Log.d(TAG,"Progress value: " + progress_value + " / " + seek_bar.getMax());
-                                                    Log.d(TAG,"Test1: " + test1 + " / " + maxIntensityValue);
-                                                    //TODO: make function that updates intensity and restarts current massage pattern
+                                                    Log.d(TAG,"Stop value MI: " + currentIntensityValue + " / " + maxIntensityValue);
+                                                    //TODO: TEST function
+                                                    updateIntensityValue(motorIntensity);
                                                 }
                                             }
         );
-    }
-
-    private void sendMotorCMD(boolean iMotorOn,byte iIntensity,byte[] iCMD){
-        if (!iMotorOn) { //if motor on, get intensity and send command
-            iCMD[2] = iIntensity; //assign seekbar value to command array
-            Log.d(TAG,"Motor Intensity ON: " + iCMD[2]);
-            writeCharacteristic(gatt,iCMD); //write command array to BLE module
-        }
-        else { //if motor off, tell motor to turn off!
-            iCMD[2] = motorOff; //assign OFF value to command array
-            Log.d(TAG,"Motor Intensity OFF: " + iCMD[2]);
-            writeCharacteristic(gatt,iCMD); //write command array to BLE module
-        }
     }
 
     //Funnction to write up to ~20 bytes to the BLE Module
@@ -126,15 +112,51 @@ public class ActivityPreset extends AppCompatActivity {
     }
 
     public void sendHorizontalWave(View view){
-
+        currentMassage = 1;
+        presetCMD[1] = (byte) (currentMassage);
+        presetCMD[2] = motorIntensity;
+        writeCharacteristic(gatt,presetCMD);
+        Log.d(TAG,"Massage Pattern: " + currentMassage + " Intensity: " + currentIntensityValue + " / " + maxIntensityValue);
     }
 
     public void sendVerticalWave(View view){
-
+        currentMassage = 2;
+        presetCMD[1] = (byte) (currentMassage);
+        presetCMD[2] = motorIntensity;
+        writeCharacteristic(gatt,presetCMD);
+        Log.d(TAG,"Massage Pattern: " + currentMassage + " Intensity: " + currentIntensityValue + " / " + maxIntensityValue);
     }
 
     public void sendStarburst(View view){
+        currentMassage = 3;
+        presetCMD[1] = (byte) (currentMassage);
+        presetCMD[2] = motorIntensity;
+        writeCharacteristic(gatt,presetCMD);
+        Log.d(TAG,"Massage Pattern: " + currentMassage + " Intensity: " + currentIntensityValue + " / " + maxIntensityValue);
+    }
 
+    public void presetStopButton(View view){
+        currentMassage = 0;
+        presetCMD[1] = (byte) (0xF0);
+        presetCMD[2] = (byte) (0x00);
+        writeCharacteristic(gatt,presetCMD);
+        Log.d(TAG,"Stop Button Pressed");
+    }
+
+    public void presetStartButton(View view){
+        Log.d(TAG,"Resuming Massage Activity");
+        presetCMD[1] = (byte) (currentMassage);
+        presetCMD[2] = motorIntensity;
+        writeCharacteristic(gatt,presetCMD);
+        Log.d(TAG,"Massage Pattern: " + currentMassage + " Intensity: " + currentIntensityValue + " / " + maxIntensityValue);
+    }
+
+    public void updateIntensityValue(byte Intensity){
+        presetCMD[1] = (byte) (currentMassage);
+        presetCMD[2] = Intensity;
+        writeCharacteristic(gatt,presetCMD);
+        Log.d(TAG,"Updating Intensity Value from Seekbar");
+        Log.d(TAG,"Massage Pattern: " + currentMassage + " Intensity: " + currentIntensityValue + " / " + maxIntensityValue);
     }
 
 }

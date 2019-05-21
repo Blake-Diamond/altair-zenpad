@@ -330,7 +330,7 @@ public class Settings3 extends AppCompatActivity {
 
         charac.setValue(bytes);
         Log.d(TAG,"Value sent to serial monitor:");
-        Toast.makeText(this,"Connected to Massage Pad",Toast.LENGTH_SHORT).show();
+        Toast.makeText(Settings3.this, "Connected to Massage Pad", Toast.LENGTH_LONG).show();
         boolean status = gatt.writeCharacteristic(charac);
         return status;
     }
