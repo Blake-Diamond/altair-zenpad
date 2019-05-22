@@ -35,7 +35,6 @@ void setup() {
   //Need to come up with function that checks the major errors in the PMIC using bitmasking
 
   Setup_bluetooth();         //Configure bluetooth module
-
   Set_pinsOutput();          //Set PWM pins as output on Teensy 3.6
   
   
@@ -80,7 +79,16 @@ void loop(void)
       //Get Massage Information
       motor = ble.buffer[1];
       intensity = ble.buffer[2];
-
+      
+    if(ble.buffer[1] == 0xF0){
+      //STOP BUTTON
+      //TODO: Write a function that stops all motors
+      Serial.println("Custom Massage STOP BUTTON");
+      stopAllMotors();
+    }
+    else{
+      //CUSTOM MOTOR CMD
+      writeOneMotor(motor,intensity);
       //Printing to Serial Monitor for Debug
       Serial.print("Custom Massage   ");
       Serial.print("Motor: ");
@@ -88,23 +96,8 @@ void loop(void)
       Serial.print("  Intensity (0-255): "); 
       Serial.print(intensity);
       Serial.println(" ");
-      
-    if(ble.buffer[1] == 0xF0){
-      //STOP BUTTON
-      //TODO: Write a function that stops all motors
-      Serial.println("Custom Massage STOP BUTTON");
-    }
-    else if(ble.buffer[1] == 0xF1){
-      //START BUTTON
-      //TODO: Write Function to continue last motor activity
-      Serial.println("Custom Massage START BUTTON");
-    }
-    else{
-      //CUSTOM MOTOR CMD
-
     }
   }
-  
   //Preset Massage
   else if(ble.buffer[0] == 0x02){
       //Get Massage Information
@@ -122,28 +115,28 @@ void loop(void)
       if(ble.buffer[1] == 0x01){
         //Horizontal Wave
         Serial.println("Horizontal Wave");
+        writeHorizontalWave(intensity);
       }
       else if(ble.buffer[1] == 0x02){
         //Vertical Wave
         Serial.println("Vertical Wave");
+        writeVerticalWave(intensity);
       }
       else if(ble.buffer[1] == 0x03){
         //Starburst
         Serial.println("Starburst");
+        writeStarburst(intensity);
       }
       else if(ble.buffer[1] == 0x04){
-        //Undefined 4th Pattern?
-        Serial.println("4th Pattern?");
+        //Snake Pattern
+        Serial.println("Snake Pattern");
+        writeSnake(intensity);
       }
       else if(ble.buffer[1] == 0xF0){
         //STOP
         Serial.println("STOP BUTTON");
+        stopAllMotors();
       }
-      else if(ble.buffer[1] == 0xF1){
-        //START
-        Serial.println("START BUTTON");
-      }
-
   }
   //Misc. info, currently unused
   else if(ble.buffer[0] == 0x03){
