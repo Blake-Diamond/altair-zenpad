@@ -125,7 +125,6 @@ void writeOneMotor(int iMotor, int iValue){
 }
 
 void writeVerticalWave(int iValue){
-    while(1){
     analogWrite(_A2, iValue);
     analogWrite(_B2, iValue);
     analogWrite(_C2, iValue);
@@ -181,11 +180,10 @@ void writeVerticalWave(int iValue){
     analogWrite(_B7, 0);
     analogWrite(_C7, 0);
     delay(1000);
-    }
 }
 
 void writeHorizontalWave(int iValue){
-    while(1){
+    
     analogWrite(_A1, iValue);
     analogWrite(_A2, iValue);
     analogWrite(_A3, iValue);
@@ -233,12 +231,11 @@ void writeHorizontalWave(int iValue){
     analogWrite(_B6, 0);
     analogWrite(_B7, 0);
     delay(1000);
-    }
+    
 }
 
 void writeStarburst(int iValue){
   //Starburst pattern
-  while(1){
     
     analogWrite(_B4, iValue);
     analogWrite(_B3, iValue);
@@ -293,12 +290,11 @@ void writeStarburst(int iValue){
     analogWrite(_C6, 0);
 
     delay(1000);
-  }
+  
 }
 
 void writeSnake(int iValue){
   //Snake pattern
-  while(1){
     analogWrite(_A1, iValue);
     analogWrite(_A2, iValue);
     analogWrite(_B1, iValue);
@@ -350,7 +346,7 @@ void writeSnake(int iValue){
     analogWrite(_A6, iValue);
     analogWrite(_A7, iValue);
     delay(1000); 
-  }
+  
 }
 
 void stopAllMotors(){
@@ -368,7 +364,7 @@ void stopAllMotors(){
     analogWrite(_B5, 0);
     analogWrite(_B6, 0);
     analogWrite(_B7, 0);
-    analogWrite(_C1, 0);
+   analogWrite(_C1, 0);
     analogWrite(_C2, 0);
     analogWrite(_C3, 0);
     analogWrite(_C4, 0);

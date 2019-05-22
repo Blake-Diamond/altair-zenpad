@@ -17,6 +17,7 @@
 int motor; //which motor we are controlling
 int massageRoutine;
 int intensity; //vibration intensity at a particular motor
+char lastCMD[3];
 
  // Create the bluefruit object, either software serial...uncomment these lines
   SoftwareSerial bluefruitSS = SoftwareSerial(BLUEFRUIT_SWUART_TXD_PIN, BLUEFRUIT_SWUART_RXD_PIN);
@@ -64,7 +65,7 @@ void loop(void)
   // Check for incoming characters from Bluefruit
   ble.println("AT+BLEUARTRX");
   ble.readline();
-
+  Serial.print(ble.buffer[0],HEX); Serial.print(ble.buffer[1],HEX); Serial.print(ble.buffer[3],HEX);
   //template for receiving a particular command
   if (strcmp(ble.buffer, "OK") == 0) {
     // no data
@@ -116,21 +117,25 @@ void loop(void)
         //Horizontal Wave
         Serial.println("Horizontal Wave");
         writeHorizontalWave(intensity);
+        return;
       }
       else if(ble.buffer[1] == 0x02){
         //Vertical Wave
         Serial.println("Vertical Wave");
         writeVerticalWave(intensity);
+        return;
       }
       else if(ble.buffer[1] == 0x03){
         //Starburst
         Serial.println("Starburst");
         writeStarburst(intensity);
+        return;
       }
       else if(ble.buffer[1] == 0x04){
         //Snake Pattern
         Serial.println("Snake Pattern");
         writeSnake(intensity);
+        return;
       }
       else if(ble.buffer[1] == 0xF0){
         //STOP
@@ -146,39 +151,6 @@ void loop(void)
   else{
       Serial.println("Unrecognized Command");
   }
-  
-
-// DEPRECATED 
-//  //catches dummy command from android app
-//  if(ble.buffer[0] == 0xFF){
-//    for (int i = 0; i < sizeof(ble.buffer); i++) {
-//      Serial.println(ble.buffer[i],HEX);
-//      if (ble.buffer[i] == 0x12) {
-//        break;
-//      }
-//
-//      
-//    }
-//    Serial.println("FF Received!");
-//    
-//    Serial.println(ble.buffer[2],HEX);
-//  }
-// 
-//     if (strcmp(ble.buffer, "START") == 0) {
-//      Serial.println("Start Recived");
-////      Drive_motors();
-////      startFlag = 1;
-//      analogWrite(R6, 190);
-//      delay(1000);
-//
-//     }
-//      
-//
-//      if (strcmp(ble.buffer, "Stop") == 0) {
-//      Serial.println("Stop Recived");
-//      analogWrite(R6, 0);
-//  }
-
   
   ble.waitForOK();
 }
