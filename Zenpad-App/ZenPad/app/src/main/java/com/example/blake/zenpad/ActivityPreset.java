@@ -25,7 +25,6 @@ public class ActivityPreset extends AppCompatActivity {
     private byte motorOff = (byte) (0x00); //intensity for OFF
     int currentIntensityValue;
     int maxIntensityValue;
-    int test1;
     int currentMassage; //0 OFF, 1 Horizontal, 2 Vertical, 3 Starburst, 4 4th Pattern
 
     @Override
@@ -46,7 +45,7 @@ public class ActivityPreset extends AppCompatActivity {
     }
 
     public void toSettings1(View view) {
-        Intent presetMassage = new Intent(ActivityPreset.this, ActivitySettings.class);
+        Intent presetMassage = new Intent(ActivityPreset.this, Settings3.class);
         startActivity(presetMassage);
     }
 
@@ -54,13 +53,13 @@ public class ActivityPreset extends AppCompatActivity {
     public void seekbarUpdate() {
         seek_bar = (SeekBar) findViewById(R.id.seekBar3);
         motorIntensity = (byte) (motorScale*seek_bar.getProgress() + motorOffset);
-
         Log.d(TAG,"SeekbarUpdate value: " + motorIntensity + " / " + seek_bar.getMax());
         seek_bar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                                                 int progress_value;
 
                                                 @Override
                                                 public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                                                    //not really used
                                                     progress_value = progress;
                                                     motorIntensity = (byte) (motorScale*seek_bar.getProgress() + motorOffset);
                                                     //Log.d(TAG,"Progress Change value: " + motorIntensity + " / " + seek_bar.getMax());
@@ -78,8 +77,7 @@ public class ActivityPreset extends AppCompatActivity {
                                                     maxIntensityValue = motorScale*seekBar.getMax()+50;
                                                     motorIntensity = (byte) (currentIntensityValue);
                                                     Log.d(TAG,"Stop value MI: " + currentIntensityValue + " / " + maxIntensityValue);
-                                                    //TODO: TEST function
-                                                    updateIntensityValue(motorIntensity);
+                                                    updateIntensityValue(motorIntensity); //updates intensity and restarts pattern
                                                 }
                                             }
         );
@@ -136,7 +134,6 @@ public class ActivityPreset extends AppCompatActivity {
     }
 
     public void presetStopButton(View view){
-        currentMassage = 0;
         presetCMD[1] = (byte) (0xF0);
         presetCMD[2] = (byte) (0x00);
         writeCharacteristic(gatt,presetCMD);

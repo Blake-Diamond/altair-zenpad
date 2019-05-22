@@ -109,35 +109,31 @@ public class ActivityCustom extends AppCompatActivity {
     public void seekbarUpdate() {
         seek_bar = (SeekBar) findViewById(R.id.seekBar2);
         motorIntensity = (byte) (motorScale*seek_bar.getProgress() + motorOffset);
-
         Log.d(TAG,"SeekbarUpdate value: " + motorIntensity + " / " + seek_bar.getMax());
         seek_bar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             int progress_value;
 
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                //not really used
                 progress_value = progress;
                 motorIntensity = (byte) (motorScale*seek_bar.getProgress() + motorOffset);
-                Log.d(TAG,"Progress Change value: " + motorIntensity + " / " + seek_bar.getMax());
-                Log.d(TAG,"Progress Change value: " + progress_value + " / " + seek_bar.getMax());
+                //Log.d(TAG,"Progress Change value: " + motorIntensity + " / " + seek_bar.getMax());
+                //Log.d(TAG,"Progress Change value: " + progress_value + " / " + seek_bar.getMax());
             }
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-                // Toast.makeText(ActivityCustom.this, "SeekBar Started Tracking", Toast.LENGTH_LONG).show();
+                //Do something?
             }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                //motorIntensity = (byte) (seek_bar.getProgress() + motorOffset);
                 currentIntensityValue = motorScale*seekBar.getProgress() + 50;
                 maxIntensityValue = motorScale*seekBar.getMax()+50;
                 motorIntensity = (byte) (currentIntensityValue);
-                Log.d(TAG,"Stop value MI: " + motorIntensity + " / " + maxIntensityValue);
-                Log.d(TAG,"Progress value: " + progress_value + " / " + seek_bar.getMax());
-                Log.d(TAG,"Test1: " + test1 + " / " + maxIntensityValue);
-                //TODO: Test this function
-                updateIntensity(motorIntensity);
+                Log.d(TAG,"Progress Bar: " + currentIntensityValue + " / " + maxIntensityValue);
+                updateIntensity(motorIntensity); //update motor intensity function
 
             }
             }
@@ -215,7 +211,7 @@ public class ActivityCustom extends AppCompatActivity {
         for(int i=0;i<isMotorOn.length;i++) {
             if(isMotorOn[i]){
                 //Motor was off, so leave it off
-                Log.d(TAG,"Motor: " + i + " is OFF");
+                //Log.d(TAG,"Motor: " + i + " is OFF");
             }
             else {
                 if(i <= 6){
@@ -233,7 +229,7 @@ public class ActivityCustom extends AppCompatActivity {
 
                 customCMD[1] = motor; //assign motor
                 writeCharacteristic(gatt,customCMD);
-                Log.d(TAG,"Motor: " + motor + " Intensity: " + motorIntensity);
+                Log.d(TAG,"index:" + i + " Motor: " + motor + " Intensity: " + motorIntensity);
                 isMotorOn[i] = false;
             }
         }
@@ -260,7 +256,7 @@ public class ActivityCustom extends AppCompatActivity {
 
                 customCMD[1] = motor; //assign motor
                 writeCharacteristic(gatt,customCMD);
-                Log.d(TAG,"Motor: " + motor + " Intensity: " + motorIntensity);
+                Log.d(TAG,"index:" + i + " Motor: " + motor + " Intensity: " + motorIntensity);
             }
         }
     }
@@ -272,10 +268,10 @@ public class ActivityCustom extends AppCompatActivity {
         motor = (byte) (0xA1); //declare which motor to assign
         customCMD[1] = motor; //assign motor to command array
         FloatingActionButton button = buttonA1;
-        isMotorOn[1] = toggleButton(button,isMotorOn[1]); //change button color and get current state
+        isMotorOn[0] = toggleButton(button,isMotorOn[0]); //change button color and get current state
        // buttonA1.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorAccent,getTheme()))); //This does not work
-        Log.d(TAG,"IsMotorOn A1: " + isMotorOn[1]);
-        sendMotorCMD(isMotorOn[1],motorIntensity,customCMD);
+        Log.d(TAG,"IsMotorOn A1: " + isMotorOn[0] + " Motor:" + motor);
+        sendMotorCMD(isMotorOn[0],motorIntensity,customCMD);
     }
 
 
