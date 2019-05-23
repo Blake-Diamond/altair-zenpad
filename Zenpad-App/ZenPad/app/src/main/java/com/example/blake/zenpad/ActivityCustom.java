@@ -26,9 +26,31 @@ public class ActivityCustom extends AppCompatActivity {
     public String TAG = "massage";
     final Intent custom_Intent = getIntent();
     private SeekBar seek_bar;
-    private TextView text_view;
-    public FloatingActionButton buttonA1;
-    public boolean isToggled = true; //used for all Toggle Switches
+    public FloatingActionButton button;
+    private static final int[] BUTTON_IDS = {
+            R.id.floatingActionButtonA1,
+            R.id.floatingActionButtonA2,
+            R.id.floatingActionButtonA3,
+            R.id.floatingActionButtonA4,
+            R.id.floatingActionButtonA5,
+            R.id.floatingActionButtonA6,
+            R.id.floatingActionButtonA7,
+            R.id.floatingActionButtonB1,
+            R.id.floatingActionButtonB2,
+            R.id.floatingActionButtonB3,
+            R.id.floatingActionButtonB4,
+            R.id.floatingActionButtonB5,
+            R.id.floatingActionButtonB6,
+            R.id.floatingActionButtonB7,
+            R.id.floatingActionButtonC1,
+            R.id.floatingActionButtonC2,
+            R.id.floatingActionButtonC3,
+            R.id.floatingActionButtonC4,
+            R.id.floatingActionButtonC5,
+            R.id.floatingActionButtonC6,
+            R.id.floatingActionButtonC7,
+    };
+/*    public boolean isToggled = true; //used for all Toggle Switches
     public boolean isToggledA1 = true;
     public boolean motorState = true;
     public boolean isToggledA2 = true;
@@ -50,7 +72,7 @@ public class ActivityCustom extends AppCompatActivity {
     public boolean isToggledC4 = true;
     public boolean isToggledC5 = true;
     public boolean isToggledC6 = true;
-    public boolean isToggledC7 = true;
+    public boolean isToggledC7 = true;*/
     public boolean[] isMotorOn = new boolean[21];
 
     private byte[] customCMD = {(byte)(0x01) ,(byte)(0x00), (byte)(0x00)};
@@ -69,28 +91,7 @@ public class ActivityCustom extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_custom);
-        buttonA1 = findViewById(R.id.floatingActionButtonA1);
-/*      buttonA2 = (Button) findViewById(R.id.floatingActionButtonA2);
-        Button buttonA3 = (Button) findViewById(R.id.floatingActionButtonA3);
-        Button buttonA4 = (Button) findViewById(R.id.floatingActionButtonA4);
-        Button buttonA5 = (Button) findViewById(R.id.floatingActionButtonA5);
-        Button buttonA6 = (Button) findViewById(R.id.floatingActionButtonA6);
-        Button buttonA7 = (Button) findViewById(R.id.floatingActionButtonA7);
-        Button buttonB1 = (Button) findViewById(R.id.floatingActionButtonB1);
-        Button buttonB2 = (Button) findViewById(R.id.floatingActionButtonB2);
-        Button buttonB3 = (Button) findViewById(R.id.floatingActionButtonB3);
-        Button buttonB4 = (Button) findViewById(R.id.floatingActionButtonB4);
-        Button buttonB5 = (Button) findViewById(R.id.floatingActionButtonB5);
-        Button buttonB6 = (Button) findViewById(R.id.floatingActionButtonB6);
-        Button buttonB7 = (Button) findViewById(R.id.floatingActionButtonB7);
-        Button buttonC1 = (Button) findViewById(R.id.floatingActionButtonC1);
-        Button buttonC2 = (Button) findViewById(R.id.floatingActionButtonC2);
-        Button buttonC3 = (Button) findViewById(R.id.floatingActionButtonC3);
-        Button buttonC4 = (Button) findViewById(R.id.floatingActionButtonC4);
-        Button buttonC5 = (Button) findViewById(R.id.floatingActionButtonC5);
-        Button buttonC6 = (Button) findViewById(R.id.floatingActionButtonC6);
-        Button buttonC7 = (Button) findViewById(R.id.floatingActionButtonC7);*/
-        for(int i=0;i<isMotorOn.length;i++){ isMotorOn[i] = true; } //intializing all motors to true
+        for(int i=0;i<isMotorOn.length;i++){ isMotorOn[i] = true; } //all motors to true
     }
 
     protected void onResume() {
@@ -188,11 +189,13 @@ public class ActivityCustom extends AppCompatActivity {
             iCMD[2] = iIntensity; //assign seekbar value to command array
             Log.d(TAG,"Motor Intensity ON: " + iCMD[2]);
             writeCharacteristic(gatt,iCMD); //write command array to BLE module
+            button.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorAccent,getTheme())));
         }
         else { //if motor off, tell motor to turn off!
             iCMD[2] = motorOff; //assign OFF value to command array
             Log.d(TAG,"Motor Intensity OFF: " + iCMD[2]);
             writeCharacteristic(gatt,iCMD); //write command array to BLE module
+            button.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorPrimary,getTheme())));
         }
     }
 
@@ -202,6 +205,10 @@ public class ActivityCustom extends AppCompatActivity {
         customCMD[1] = (byte) (0xF0);
         customCMD[2] = motorOff; //assign OFF value to command array
         writeCharacteristic(gatt, customCMD); //write characteristic to BLE module
+        for(int i=0;i<BUTTON_IDS.length;i++) {
+            button = findViewById(BUTTON_IDS[i]);
+            button.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorPrimary, getTheme())));
+        }
         Log.d(TAG,"Motor Intensity OFF: " + customCMD[2]);
     }
 
@@ -211,25 +218,17 @@ public class ActivityCustom extends AppCompatActivity {
         for(int i=0;i<isMotorOn.length;i++) {
             if(isMotorOn[i]){
                 //Motor was off, so leave it off
-                //Log.d(TAG,"Motor: " + i + " is OFF");
             }
             else {
-                if(i <= 6){
-                    //Left Column
-                    motor = (byte) (i + 161);
-                }
-                else if(i>=7 && i<=13){
-                    //Center Column
-                    motor = (byte) (i + 170);
-                }
-                else{
-                    //Right Column
-                    motor = (byte) (i + 179);
-                }
+                if(i <= 6){motor = (byte) (i + 161); }
+                else if(i>=7 && i<=13){ motor = (byte) (i + 170); }
+                else{ motor = (byte) (i + 179); }
 
                 customCMD[1] = motor; //assign motor
                 writeCharacteristic(gatt,customCMD);
-                Log.d(TAG,"index:" + i + " Motor: " + motor + " Intensity: " + motorIntensity);
+                button = findViewById(BUTTON_IDS[i]);
+                button.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorAccent,getTheme())));
+                Log.d(TAG,"index:" + i + " Motor: " + motor + " Intensity: " + (int)motorIntensity);
                 isMotorOn[i] = false;
             }
         }
@@ -256,24 +255,249 @@ public class ActivityCustom extends AppCompatActivity {
 
                 customCMD[1] = motor; //assign motor
                 writeCharacteristic(gatt,customCMD);
-                Log.d(TAG,"index:" + i + " Motor: " + motor + " Intensity: " + motorIntensity);
+                Log.d(TAG,"index:" + i + " Motor: " + motor + " Intensity: " +(int)motorIntensity);
             }
         }
     }
-
+    public int findIndexFromMotor(int intMotor){
+        if(intMotor >= 0xA1 && intMotor <= 0xA7){ return (intMotor - 161); }
+        else if(intMotor >= 0xB1 && intMotor <= 0xB7){ return (intMotor - 170); }
+        else if(intMotor >= 0xC1 && intMotor <= 0xC7){ return (intMotor- 179); }
+        else{return -1;} //default value
+    }
 
     //TODO: Scale onClick Methods
     //onClick Methods for each motor button
     public void clickA1(View view){
-        motor = (byte) (0xA1); //declare which motor to assign
+        int MOTOR = 0xA1;
+        motor = (byte) (MOTOR); //declare which motor to assign
+        int buttonIndex = findIndexFromMotor(MOTOR);
+        button = findViewById(BUTTON_IDS[buttonIndex]);
+        Log.d(TAG,"button index: " + buttonIndex);
         customCMD[1] = motor; //assign motor to command array
-        FloatingActionButton button = buttonA1;
-        isMotorOn[0] = toggleButton(button,isMotorOn[0]); //change button color and get current state
-       // buttonA1.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorAccent,getTheme()))); //This does not work
-        Log.d(TAG,"IsMotorOn A1: " + isMotorOn[0] + " Motor:" + motor);
-        sendMotorCMD(isMotorOn[0],motorIntensity,customCMD);
+        isMotorOn[buttonIndex] = toggleButton(button,isMotorOn[buttonIndex]); //change button color and get current state
+        Log.d(TAG," Motor:" + motor + "  IsMotorOn: " + isMotorOn[buttonIndex]);
+        sendMotorCMD(isMotorOn[buttonIndex],motorIntensity,customCMD);
     }
 
-
-
+    public void clickA2(View view){
+        int MOTOR = 0xA2;
+        motor = (byte) (MOTOR); //declare which motor to assign
+        int buttonIndex = findIndexFromMotor(MOTOR);
+        button = findViewById(BUTTON_IDS[buttonIndex]);
+        Log.d(TAG,"button index: " + buttonIndex);
+        customCMD[1] = motor; //assign motor to command array
+        isMotorOn[buttonIndex] = toggleButton(button,isMotorOn[buttonIndex]); //change button color and get current state
+        Log.d(TAG," Motor:" + motor + "  IsMotorOn: " + isMotorOn[buttonIndex]);
+        sendMotorCMD(isMotorOn[buttonIndex],motorIntensity,customCMD);
+    }
+    public void clickA3(View view){
+        int MOTOR = 0xA3;
+        motor = (byte) (MOTOR); //declare which motor to assign
+        int buttonIndex = findIndexFromMotor(MOTOR);
+        button = findViewById(BUTTON_IDS[buttonIndex]);
+        Log.d(TAG,"button index: " + buttonIndex);
+        customCMD[1] = motor; //assign motor to command array
+        isMotorOn[buttonIndex] = toggleButton(button,isMotorOn[buttonIndex]); //change button color and get current state
+        Log.d(TAG," Motor:" + motor + "  IsMotorOn: " + isMotorOn[buttonIndex]);
+        sendMotorCMD(isMotorOn[buttonIndex],motorIntensity,customCMD);
+    }
+    public void clickA4(View view){
+        int MOTOR = 0xA4;
+        motor = (byte) (MOTOR); //declare which motor to assign
+        int buttonIndex = findIndexFromMotor(MOTOR);
+        button = findViewById(BUTTON_IDS[buttonIndex]);
+        Log.d(TAG,"button index: " + buttonIndex);
+        customCMD[1] = motor; //assign motor to command array
+        isMotorOn[buttonIndex] = toggleButton(button,isMotorOn[buttonIndex]); //change button color and get current state
+        Log.d(TAG," Motor:" + motor + "  IsMotorOn: " + isMotorOn[buttonIndex]);
+        sendMotorCMD(isMotorOn[buttonIndex],motorIntensity,customCMD);
+    }
+    public void clickA5(View view){
+        int MOTOR = 0xA5;
+        motor = (byte) (MOTOR); //declare which motor to assign
+        int buttonIndex = findIndexFromMotor(MOTOR);
+        button = findViewById(BUTTON_IDS[buttonIndex]);
+        Log.d(TAG,"button index: " + buttonIndex);
+        customCMD[1] = motor; //assign motor to command array
+        isMotorOn[buttonIndex] = toggleButton(button,isMotorOn[buttonIndex]); //change button color and get current state
+        Log.d(TAG," Motor:" + motor + "  IsMotorOn: " + isMotorOn[buttonIndex]);
+        sendMotorCMD(isMotorOn[buttonIndex],motorIntensity,customCMD);
+    }
+    public void clickA6(View view){
+        int MOTOR = 0xA6;
+        motor = (byte) (MOTOR); //declare which motor to assign
+        int buttonIndex = findIndexFromMotor(MOTOR);
+        button = findViewById(BUTTON_IDS[buttonIndex]);
+        Log.d(TAG,"button index: " + buttonIndex);
+        customCMD[1] = motor; //assign motor to command array
+        isMotorOn[buttonIndex] = toggleButton(button,isMotorOn[buttonIndex]); //change button color and get current state
+        Log.d(TAG," Motor:" + motor + "  IsMotorOn: " + isMotorOn[buttonIndex]);
+        sendMotorCMD(isMotorOn[buttonIndex],motorIntensity,customCMD);
+    }
+    public void clickA7(View view){
+        int MOTOR = 0xA7;
+        motor = (byte) (MOTOR); //declare which motor to assign
+        int buttonIndex = findIndexFromMotor(MOTOR);
+        button = findViewById(BUTTON_IDS[buttonIndex]);
+        Log.d(TAG,"button index: " + buttonIndex);
+        customCMD[1] = motor; //assign motor to command array
+        isMotorOn[buttonIndex] = toggleButton(button,isMotorOn[buttonIndex]); //change button color and get current state
+        Log.d(TAG," Motor:" + motor + "  IsMotorOn: " + isMotorOn[buttonIndex]);
+        sendMotorCMD(isMotorOn[buttonIndex],motorIntensity,customCMD);
+    }
+    public void clickB1(View view){
+        int MOTOR = 0xB1;
+        motor = (byte) (MOTOR); //declare which motor to assign
+        int buttonIndex = findIndexFromMotor(MOTOR);
+        button = findViewById(BUTTON_IDS[buttonIndex]);
+        Log.d(TAG,"button index: " + buttonIndex);
+        customCMD[1] = motor; //assign motor to command array
+        isMotorOn[buttonIndex] = toggleButton(button,isMotorOn[buttonIndex]); //change button color and get current state
+        Log.d(TAG," Motor:" + motor + "  IsMotorOn: " + isMotorOn[buttonIndex]);
+        sendMotorCMD(isMotorOn[buttonIndex],motorIntensity,customCMD);
+    }
+    public void clickB2(View view){
+        int MOTOR = 0xB2;
+        motor = (byte) (MOTOR); //declare which motor to assign
+        int buttonIndex = findIndexFromMotor(MOTOR);
+        button = findViewById(BUTTON_IDS[buttonIndex]);
+        Log.d(TAG,"button index: " + buttonIndex);
+        customCMD[1] = motor; //assign motor to command array
+        isMotorOn[buttonIndex] = toggleButton(button,isMotorOn[buttonIndex]); //change button color and get current state
+        Log.d(TAG," Motor:" + motor + "  IsMotorOn: " + isMotorOn[buttonIndex]);
+        sendMotorCMD(isMotorOn[buttonIndex],motorIntensity,customCMD);
+    }
+    public void clickB3(View view){
+        int MOTOR = 0xB3;
+        motor = (byte) (MOTOR); //declare which motor to assign
+        int buttonIndex = findIndexFromMotor(MOTOR);
+        button = findViewById(BUTTON_IDS[buttonIndex]);
+        Log.d(TAG,"button index: " + buttonIndex);
+        customCMD[1] = motor; //assign motor to command array
+        isMotorOn[buttonIndex] = toggleButton(button,isMotorOn[buttonIndex]); //change button color and get current state
+        Log.d(TAG," Motor:" + motor + "  IsMotorOn: " + isMotorOn[buttonIndex]);
+        sendMotorCMD(isMotorOn[buttonIndex],motorIntensity,customCMD);
+    }
+    public void clickB4(View view){
+        int MOTOR = 0xB4;
+        motor = (byte) (MOTOR); //declare which motor to assign
+        int buttonIndex = findIndexFromMotor(MOTOR);
+        button = findViewById(BUTTON_IDS[buttonIndex]);
+        Log.d(TAG,"button index: " + buttonIndex);
+        customCMD[1] = motor; //assign motor to command array
+        isMotorOn[buttonIndex] = toggleButton(button,isMotorOn[buttonIndex]); //change button color and get current state
+        Log.d(TAG," Motor:" + motor + "  IsMotorOn: " + isMotorOn[buttonIndex]);
+        sendMotorCMD(isMotorOn[buttonIndex],motorIntensity,customCMD);
+    }
+    public void clickB5(View view){
+        int MOTOR = 0xB5;
+        motor = (byte) (MOTOR); //declare which motor to assign
+        int buttonIndex = findIndexFromMotor(MOTOR);
+        button = findViewById(BUTTON_IDS[buttonIndex]);
+        Log.d(TAG,"button index: " + buttonIndex);
+        customCMD[1] = motor; //assign motor to command array
+        isMotorOn[buttonIndex] = toggleButton(button,isMotorOn[buttonIndex]); //change button color and get current state
+        Log.d(TAG," Motor:" + motor + "  IsMotorOn: " + isMotorOn[buttonIndex]);
+        sendMotorCMD(isMotorOn[buttonIndex],motorIntensity,customCMD);
+    }
+    public void clickB6(View view){
+        int MOTOR = 0xB6;
+        motor = (byte) (MOTOR); //declare which motor to assign
+        int buttonIndex = findIndexFromMotor(MOTOR);
+        button = findViewById(BUTTON_IDS[buttonIndex]);
+        Log.d(TAG,"button index: " + buttonIndex);
+        customCMD[1] = motor; //assign motor to command array
+        isMotorOn[buttonIndex] = toggleButton(button,isMotorOn[buttonIndex]); //change button color and get current state
+        Log.d(TAG," Motor:" + motor + "  IsMotorOn: " + isMotorOn[buttonIndex]);
+        sendMotorCMD(isMotorOn[buttonIndex],motorIntensity,customCMD);
+    }
+    public void clickB7(View view){
+        int MOTOR = 0xB7;
+        motor = (byte) (MOTOR); //declare which motor to assign
+        int buttonIndex = findIndexFromMotor(MOTOR);
+        button = findViewById(BUTTON_IDS[buttonIndex]);
+        Log.d(TAG,"button index: " + buttonIndex);
+        customCMD[1] = motor; //assign motor to command array
+        isMotorOn[buttonIndex] = toggleButton(button,isMotorOn[buttonIndex]); //change button color and get current state
+        Log.d(TAG," Motor:" + motor + "  IsMotorOn: " + isMotorOn[buttonIndex]);
+        sendMotorCMD(isMotorOn[buttonIndex],motorIntensity,customCMD);
+    }
+    public void clickC1(View view){
+        int MOTOR = 0xC1;
+        motor = (byte) (MOTOR); //declare which motor to assign
+        int buttonIndex = findIndexFromMotor(MOTOR);
+        button = findViewById(BUTTON_IDS[buttonIndex]);
+        Log.d(TAG,"button index: " + buttonIndex);
+        customCMD[1] = motor; //assign motor to command array
+        isMotorOn[buttonIndex] = toggleButton(button,isMotorOn[buttonIndex]); //change button color and get current state
+        Log.d(TAG," Motor:" + motor + "  IsMotorOn: " + isMotorOn[buttonIndex]);
+        sendMotorCMD(isMotorOn[buttonIndex],motorIntensity,customCMD);
+    }
+    public void clickC2(View view){
+        int MOTOR = 0xC2;
+        motor = (byte) (MOTOR); //declare which motor to assign
+        int buttonIndex = findIndexFromMotor(MOTOR);
+        button = findViewById(BUTTON_IDS[buttonIndex]);
+        Log.d(TAG,"button index: " + buttonIndex);
+        customCMD[1] = motor; //assign motor to command array
+        isMotorOn[buttonIndex] = toggleButton(button,isMotorOn[buttonIndex]); //change button color and get current state
+        Log.d(TAG," Motor:" + motor + "  IsMotorOn: " + isMotorOn[buttonIndex]);
+        sendMotorCMD(isMotorOn[buttonIndex],motorIntensity,customCMD);
+    }
+    public void clickC3(View view){
+        int MOTOR = 0xC3;
+        motor = (byte) (MOTOR); //declare which motor to assign
+        int buttonIndex = findIndexFromMotor(MOTOR);
+        button = findViewById(BUTTON_IDS[buttonIndex]);
+        Log.d(TAG,"button index: " + buttonIndex);
+        customCMD[1] = motor; //assign motor to command array
+        isMotorOn[buttonIndex] = toggleButton(button,isMotorOn[buttonIndex]); //change button color and get current state
+        Log.d(TAG," Motor:" + motor + "  IsMotorOn: " + isMotorOn[buttonIndex]);
+        sendMotorCMD(isMotorOn[buttonIndex],motorIntensity,customCMD);
+    }
+    public void clickC4(View view){
+        int MOTOR = 0xC4;
+        motor = (byte) (MOTOR); //declare which motor to assign
+        int buttonIndex = findIndexFromMotor(MOTOR);
+        button = findViewById(BUTTON_IDS[buttonIndex]);
+        Log.d(TAG,"button index: " + buttonIndex);
+        customCMD[1] = motor; //assign motor to command array
+        isMotorOn[buttonIndex] = toggleButton(button,isMotorOn[buttonIndex]); //change button color and get current state
+        Log.d(TAG," Motor:" + motor + "  IsMotorOn: " + isMotorOn[buttonIndex]);
+        sendMotorCMD(isMotorOn[buttonIndex],motorIntensity,customCMD);
+    }
+    public void clickC5(View view){
+        int MOTOR = 0xC5;
+        motor = (byte) (MOTOR); //declare which motor to assign
+        int buttonIndex = findIndexFromMotor(MOTOR);
+        button = findViewById(BUTTON_IDS[buttonIndex]);
+        Log.d(TAG,"button index: " + buttonIndex);
+        customCMD[1] = motor; //assign motor to command array
+        isMotorOn[buttonIndex] = toggleButton(button,isMotorOn[buttonIndex]); //change button color and get current state
+        Log.d(TAG," Motor:" + motor + "  IsMotorOn: " + isMotorOn[buttonIndex]);
+        sendMotorCMD(isMotorOn[buttonIndex],motorIntensity,customCMD);
+    }
+    public void clickC6(View view){
+        int MOTOR = 0xC6;
+        motor = (byte) (MOTOR); //declare which motor to assign
+        int buttonIndex = findIndexFromMotor(MOTOR);
+        button = findViewById(BUTTON_IDS[buttonIndex]);
+        Log.d(TAG,"button index: " + buttonIndex);
+        customCMD[1] = motor; //assign motor to command array
+        isMotorOn[buttonIndex] = toggleButton(button,isMotorOn[buttonIndex]); //change button color and get current state
+        Log.d(TAG," Motor:" + motor + "  IsMotorOn: " + isMotorOn[buttonIndex]);
+        sendMotorCMD(isMotorOn[buttonIndex],motorIntensity,customCMD);
+    }
+    public void clickC7(View view){
+        int MOTOR = 0xC7;
+        motor = (byte) (MOTOR); //declare which motor to assign
+        int buttonIndex = findIndexFromMotor(MOTOR);
+        button = findViewById(BUTTON_IDS[buttonIndex]);
+        Log.d(TAG,"button index: " + buttonIndex);
+        customCMD[1] = motor; //assign motor to command array
+        isMotorOn[buttonIndex] = toggleButton(button,isMotorOn[buttonIndex]); //change button color and get current state
+        Log.d(TAG," Motor:" + motor + "  IsMotorOn: " + isMotorOn[buttonIndex]);
+        sendMotorCMD(isMotorOn[buttonIndex],motorIntensity,customCMD);
+    }
 }

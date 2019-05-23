@@ -32,7 +32,7 @@
         app:backgroundTint="@color/colorPrimary"
         app:layout_constraintBottom_toTopOf="@+id/floatingActionButtonC5"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@color/colorPrimary" />
+         />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/floatingActionButtonC5"
@@ -45,7 +45,7 @@
         app:backgroundTint="@color/colorPrimary"
         app:layout_constraintBottom_toTopOf="@+id/floatingActionButtonC4"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@color/colorPrimary" />
+         />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/floatingActionButtonC4"
@@ -58,7 +58,7 @@
         app:backgroundTint="@color/colorPrimary"
         app:layout_constraintBottom_toTopOf="@+id/floatingActionButtonC3"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@color/colorPrimary" />
+         />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/floatingActionButtonC3"
@@ -71,7 +71,7 @@
         app:backgroundTint="@color/colorPrimary"
         app:layout_constraintBottom_toTopOf="@+id/floatingActionButtonC2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@color/colorPrimary" />
+         />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/floatingActionButtonC2"
@@ -84,7 +84,7 @@
         app:backgroundTint="@color/colorPrimary"
         app:layout_constraintBottom_toTopOf="@+id/floatingActionButtonC1"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@color/colorPrimary" />
+         />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/floatingActionButtonC1"
@@ -97,7 +97,7 @@
         app:backgroundTint="@color/colorPrimary"
         app:layout_constraintBottom_toTopOf="@+id/seekBar2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@color/colorPrimary" />
+         />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/floatingActionButtonB7"
@@ -110,7 +110,7 @@
         app:backgroundTint="@color/colorPrimary"
         app:layout_constraintBottom_toTopOf="@+id/floatingActionButtonB6"
         app:layout_constraintEnd_toStartOf="@+id/floatingActionButtonC7"
-        app:srcCompat="@color/colorPrimary" />
+         />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/floatingActionButtonB6"
@@ -123,7 +123,7 @@
         app:backgroundTint="@color/colorPrimary"
         app:layout_constraintBottom_toTopOf="@+id/floatingActionButtonB5"
         app:layout_constraintEnd_toStartOf="@+id/floatingActionButtonC6"
-        app:srcCompat="@color/colorPrimary" />
+        />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/floatingActionButtonB5"
@@ -136,7 +136,7 @@
         app:backgroundTint="@color/colorPrimary"
         app:layout_constraintBottom_toTopOf="@+id/floatingActionButtonB4"
         app:layout_constraintEnd_toStartOf="@+id/floatingActionButtonC5"
-        app:srcCompat="@color/colorPrimary" />
+         />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/floatingActionButtonB4"
@@ -149,7 +149,7 @@
         app:backgroundTint="@color/colorPrimary"
         app:layout_constraintBottom_toTopOf="@+id/floatingActionButtonB3"
         app:layout_constraintEnd_toStartOf="@+id/floatingActionButtonC4"
-        app:srcCompat="@color/colorPrimary" />
+         />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/floatingActionButtonB3"
@@ -162,7 +162,7 @@
         app:backgroundTint="@color/colorPrimary"
         app:layout_constraintBottom_toTopOf="@+id/floatingActionButtonB2"
         app:layout_constraintEnd_toStartOf="@+id/floatingActionButtonC3"
-        app:srcCompat="@color/colorPrimary" />
+         />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/floatingActionButtonB2"
@@ -175,7 +175,7 @@
         app:backgroundTint="@color/colorPrimary"
         app:layout_constraintBottom_toTopOf="@+id/floatingActionButtonB1"
         app:layout_constraintEnd_toStartOf="@+id/floatingActionButtonC2"
-        app:srcCompat="@color/colorPrimary" />
+         />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/floatingActionButtonB1"
@@ -188,7 +188,7 @@
         app:backgroundTint="@color/colorPrimary"
         app:layout_constraintBottom_toTopOf="@+id/seekBar2"
         app:layout_constraintEnd_toStartOf="@+id/floatingActionButtonC1"
-        app:srcCompat="@color/colorPrimary" />
+         />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/floatingActionButtonA6"
@@ -204,7 +204,7 @@
         app:layout_constraintEnd_toStartOf="@+id/floatingActionButtonB6"
         app:layout_constraintHorizontal_bias="0.37"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@color/colorPrimary" />
+         />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/floatingActionButtonA5"
@@ -220,7 +220,7 @@
         app:layout_constraintEnd_toStartOf="@+id/floatingActionButtonB5"
         app:layout_constraintHorizontal_bias="0.37"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@color/colorPrimary" />
+        />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/floatingActionButtonA4"
@@ -236,7 +236,7 @@
         app:layout_constraintEnd_toStartOf="@+id/floatingActionButtonB4"
         app:layout_constraintHorizontal_bias="0.37"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@color/colorPrimary" />
+        />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/floatingActionButtonA3"
@@ -252,7 +252,7 @@
         app:layout_constraintEnd_toStartOf="@+id/floatingActionButtonB3"
         app:layout_constraintHorizontal_bias="0.37"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@color/colorPrimary" />
+         />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/floatingActionButtonA2"
@@ -268,7 +268,7 @@
         app:layout_constraintEnd_toStartOf="@+id/floatingActionButtonB2"
         app:layout_constraintHorizontal_bias="0.37"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@color/colorPrimary" />
+        />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/floatingActionButtonA1"
@@ -284,7 +284,8 @@
         app:layout_constraintBottom_toTopOf="@+id/seekBar2"
         app:layout_constraintEnd_toStartOf="@+id/floatingActionButtonB1"
         app:layout_constraintHorizontal_bias="0.37"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        />
 
 
     <Button
@@ -346,19 +347,20 @@
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/homeButtonCustom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="46dp"
+        android:layout_height="45dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:clickable="true"
         android:onClick="toHome"
         app:layout_constraintBottom_toTopOf="@+id/floatingActionButtonA7"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.024"
+        app:layout_constraintHorizontal_bias="0.026"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@android:drawable/ic_menu_revert" />
 
 </android.support.constraint.ConstraintLayout>
