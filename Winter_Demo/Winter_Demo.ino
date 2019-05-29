@@ -26,6 +26,7 @@ char lastCMD[3];
                       BLUEFRUIT_UART_CTS_PIN, BLUEFRUIT_UART_RTS_PIN);
                       
 void setup() {
+  stopAllMotors();
   Setup_i2c();              //i2c configuration
   delay(1000);              //wait 1 second
   Set_PMICReg();            //set PMIC Registers to Default Values
@@ -65,7 +66,7 @@ void loop(void)
   // Check for incoming characters from Bluefruit
   ble.println("AT+BLEUARTRX");
   ble.readline();
-  Serial.print(ble.buffer[0],HEX); Serial.print(ble.buffer[1],HEX); Serial.print(ble.buffer[3],HEX);
+  //Serial.print(ble.buffer[0],HEX); Serial.print(ble.buffer[1],HEX); Serial.print(ble.buffer[3],HEX);
   //template for receiving a particular command
   if (strcmp(ble.buffer, "OK") == 0) {
     // no data
@@ -100,6 +101,8 @@ void loop(void)
     }
   }
   //Preset Massage
+  //add if statement so if its not ==2 and lastmassage == 2 then execute,
+  //make a function that does the last command w/ similar command structure
   else if(ble.buffer[0] == 0x02){
       //Get Massage Information
       massageRoutine = ble.buffer[1];

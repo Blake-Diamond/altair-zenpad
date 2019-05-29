@@ -61,6 +61,13 @@ public class Settings3 extends AppCompatActivity {
     private BluetoothGattCharacteristic mUartRxCharacteristic;
     private int mUartTxCharacteristicWriteType;
     public byte[] xx = new byte[1];
+    public static final String[] addrBluefruit = {
+        "C7:08:5D:51:7E:03",
+        "F4:61:6E:F2:EE:5A",
+        "E8:89:2B:BD:E3:32",
+        "E6:A1:19:6E:9E:AF",
+        "D2:48:D2:3B:E0:34"
+    };
 
 
     @Override
@@ -164,8 +171,16 @@ public class Settings3 extends AppCompatActivity {
 
             //display our device name
             Log.d(TAG, "Device Address: " + result.getDevice().getAddress());
-            if(result.getDevice().getAddress().matches("C7:08:5D:51:7E:03")) {
-                address = result.getDevice().getAddress(); // this is what we will need to
+            /*BT Addresses:
+            1) "C7:08:5D:51:7E:03"
+            2) "F4:61:6E:F2:EE:5A"
+            3) "E8:89:2B:BD:E3:32"
+            4) "E6:A1:19:6E:9E:AF"
+            5) "D2:48:D2:3B:E0:34"
+             */
+            address = result.getDevice().getAddress(); // this is what we will need to
+            /*if(isBluefruit(address))*/
+            if(result.getDevice().getAddress().matches("C7:08:5D:51:7E:03")){
                 Log.d(TAG, "Device Name: " + address);
                 Log.d(TAG,"We found our BLE Device");
                 boolean connectionWorked = connect(address);
@@ -365,4 +380,17 @@ public class Settings3 extends AppCompatActivity {
         Intent intentHome = new Intent(Settings3.this, MainActivity.class);
         startActivity(intentHome);
     }
+
+    public boolean isBluefruit(String address) {
+        boolean exists = false;
+        for (int i = 0; i < addrBluefruit.length; i++) {
+            if (address == addrBluefruit[i]) {
+                exists = true;
+                break;
+            }
+        }
+        return exists;
+    }
+
+
 }

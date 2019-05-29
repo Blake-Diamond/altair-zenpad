@@ -20,7 +20,7 @@ const int _C3 = 30;
 const int _C4 = 29;
 const int _C5 = 4;
 const int _C6 = 16;
-const int _C7 = 5;
+const int _C7 = 17;
 
 void Set_pinsOutput() {
   //Sets PWM Pins as Outputs, called in setup of Winter_Demo
@@ -125,49 +125,33 @@ void writeOneMotor(int iMotor, int iValue){
 }
 
 void writeVerticalWave(int iValue){
+    analogWrite(_A1 ,iValue);
+    analogWrite(_B1, iValue);
+    analogWrite(_C1, iValue);
+    analogWrite(_A7, 0);
+    analogWrite(_B7, 0);
+    analogWrite(_C7, 0);
+    delay(1000);
+    
     analogWrite(_A2, iValue);
     analogWrite(_B2, iValue);
     analogWrite(_C2, iValue);
-    analogWrite(_A5, 0);
-    analogWrite(_B5, 0);
-    analogWrite(_C5, 0);
-    delay(1000);
-    
-    analogWrite(_A4, iValue);
-    analogWrite(_B4, iValue);
-    analogWrite(_C4, iValue);
-    analogWrite(_A2, 0);
-    analogWrite(_B2, 0);
-    analogWrite(_C2, 0);
-    delay(1000);
-    
-    analogWrite(_A6, iValue);
-    analogWrite(_B6, iValue);
-    analogWrite(_C6, iValue);
-    analogWrite(_A4, 0);
-    analogWrite(_B4, 0);
-    analogWrite(_C4, 0);
-    delay(1000);
-    
-    analogWrite(_A1, iValue);
-    analogWrite(_B1, iValue);
-    analogWrite(_C1, iValue);
-    analogWrite(_A6, 0);
-    analogWrite(_B6, 0);
-    analogWrite(_C6, 0);
-    delay(1000);
-    
-    analogWrite(_A3, iValue);
-    analogWrite(_B3, iValue);
-    analogWrite(_C3, iValue);
     analogWrite(_A1, 0);
     analogWrite(_B1, 0);
     analogWrite(_C1, 0);
     delay(1000);
     
-    analogWrite(_A7, iValue);
-    analogWrite(_B7, iValue);
-    analogWrite(_C7, iValue);
+    analogWrite(_A3, iValue);
+    analogWrite(_B3, iValue);
+    analogWrite(_C3, iValue);
+    analogWrite(_A2, 0);
+    analogWrite(_B2, 0);
+    analogWrite(_C2, 0);
+    delay(1000);
+    
+    analogWrite(_A4, iValue);
+    analogWrite(_B4, iValue);
+    analogWrite(_C4, iValue);
     analogWrite(_A3, 0);
     analogWrite(_B3, 0);
     analogWrite(_C3, 0);
@@ -176,9 +160,25 @@ void writeVerticalWave(int iValue){
     analogWrite(_A5, iValue);
     analogWrite(_B5, iValue);
     analogWrite(_C5, iValue);
-    analogWrite(_A7, 0);
-    analogWrite(_B7, 0);
-    analogWrite(_C7, 0);
+    analogWrite(_A4, 0);
+    analogWrite(_B4, 0);
+    analogWrite(_C4, 0);
+    delay(1000);
+    
+    analogWrite(_A6, iValue);
+    analogWrite(_B6, iValue);
+    analogWrite(_C6, iValue);
+    analogWrite(_A5, 0);
+    analogWrite(_B5, 0);
+    analogWrite(_C5, 0);
+    delay(1000);
+    
+    analogWrite(_A7, iValue);
+    analogWrite(_B7, iValue);
+    analogWrite(_C7, iValue);
+    analogWrite(_A6, 0);
+    analogWrite(_B6, 0);
+    analogWrite(_C6, 0);
     delay(1000);
 }
 
