@@ -38,8 +38,6 @@ void setup() {
 
   Setup_bluetooth();         //Configure bluetooth module
   Set_pinsOutput();          //Set PWM pins as output on Teensy 3.6
-  
-  
 }
 
 
@@ -75,14 +73,21 @@ void loop(void)
 
   // Some data was found, its in the buffer
   Serial.print(("[Recv] ")); 
-
+  Serial.print("Last Command:");
+  Serial.print(lastCMD[0],HEX);
+  Serial.print(lastCMD[1],HEX);
+  Serial.println(lastCMD[2],HEX);
+  
   //Custom Massage
-  if(ble.buffer[0] == 0x01){
+  if(ble.buffer[0] == 0x01 ||(ble.buffer[0] != 0x01 && lastCMD[0] == 0x01)){
+      lastCMD[0] == ble.buffer[0];
+      lastCMD[1] == ble.buffer[1];
+      lastCMD[2] == ble.buffer[2];
       //Get Massage Information
       motor = ble.buffer[1];
       intensity = ble.buffer[2];
       
-    if(ble.buffer[1] == 0xF0){
+    if(ble.buffer[1] == 0xF0 ||(ble.buffer[1] != 0xF0 && lastCMD[0] == 0xF0)){
       //STOP BUTTON
       //TODO: Write a function that stops all motors
       Serial.println("Custom Massage STOP BUTTON");
@@ -120,25 +125,33 @@ void loop(void)
         //Horizontal Wave
         Serial.println("Horizontal Wave");
         writeHorizontalWave(intensity);
-        return;
+        //return;
       }
       else if(ble.buffer[1] == 0x02){
         //Vertical Wave
-        Serial.println("Vertical Wave");
-        writeVerticalWave(intensity);
-        return;
+        writeMassagePattern(massageRoutine,intensity);
+        checkContinue(massageRoutine,intensity);
+//        ble.readline();
+//        while(ble.buffer[0] == 0x4F){
+//          Serial.print("Readline ");
+//          Serial.println(ble.buffer[0],HEX);
+//          writeVerticalWave(intensity);
+//          Serial.println("finished wave");
+//          ble.readline();
+//          ble.waitForOK();
+//        }
       }
       else if(ble.buffer[1] == 0x03){
         //Starburst
         Serial.println("Starburst");
         writeStarburst(intensity);
-        return;
+        //return;
       }
       else if(ble.buffer[1] == 0x04){
         //Snake Pattern
         Serial.println("Snake Pattern");
         writeSnake(intensity);
-        return;
+        //return;
       }
       else if(ble.buffer[1] == 0xF0){
         //STOP
@@ -150,12 +163,12 @@ void loop(void)
   else if(ble.buffer[0] == 0x03){
       Serial.println("Miscellanous");
   }
-  //Default
-  else{
-      Serial.println("Unrecognized Command");
-  }
+//  //Default
+//  else{
+//      Serial.println("Unrecognized Command");
+//  }
   
-  ble.waitForOK();
+ // ble.waitForOK(); //What does this do?
 }
 
 
@@ -222,4 +235,44 @@ void Setup_bluetooth(void)
     ble.sendCommandCheckOK("AT+HWModeLED=" MODE_LED_BEHAVIOUR);
     Serial.println(F("******************************"));
   }
+}
+
+//check if there is new command, if not then continue the pattern
+void checkContinue(int Pattern, int intensity){
+    ble.readline();
+    printBuffer();
+    //buffer[0] == 0x4F if nothing is received, kinda buggy tbh
+    while(ble.buffer[0] == 0x4F){
+          Serial.print("buffer: ");
+          printBuffer();
+          writeMassagePattern(Pattern,intensity);
+          Serial.print("... finished wave");
+          ble.readline();
+          
+          Serial.print("  New Buffer Value:");
+          printBuffer();
+         // ble.waitForOK();
+         //only accepts command when ble.buffer[0] == 0
+    }
+}
+
+//writes any preset massage pattern, taking the pattern # and intensity as inputs
+void writeMassagePattern(int Pattern, int intensity){
+  if(Pattern == 1){writeHorizontalWave(intensity);
+  Serial.println("Horizontal Wave");}
+  else if(Pattern == 2){writeVerticalWave(intensity);
+  Serial.println("Vertical Wave");}
+  else if(Pattern == 3){writeStarburst(intensity);
+  Serial.println("Starburst Wave");}
+  else if(Pattern == 4){writeSnake(intensity);
+  Serial.println("Snake Pattern");}
+}
+
+void printBuffer(){
+  Serial.print(" 0x");
+  Serial.print(ble.buffer[0],HEX); 
+  Serial.print(" 0x");
+  Serial.print(ble.buffer[1],HEX); 
+  Serial.print(" 0x");
+  Serial.println(ble.buffer[2],HEX);
 }
