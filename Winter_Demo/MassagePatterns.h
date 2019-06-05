@@ -64,7 +64,7 @@ void Drive_motors() {
 //    analogWrite(R5, 0);
 //    analogWrite(R6, 0);
 //    analogWrite(R7, 0);
-//    delay(1000);
+//    delay(500);
 //    
 //    analogWrite(C1, iValue);
 //    analogWrite(C2, iValue);
@@ -80,7 +80,7 @@ void Drive_motors() {
 //    analogWrite(L5, 0);
 //    analogWrite(L6, 0);
 //    analogWrite(A1, 0);
-//    delay(1000);
+//    delay(500);
 //    
 //    analogWrite(R1, iValue);
 //    analogWrite(R2, iValue);
@@ -96,7 +96,7 @@ void Drive_motors() {
 //    analogWrite(C5, 0);
 //    analogWrite(C6, 0);
 //    analogWrite(C7, 0);
-//    delay(1000);
+//    delay(500);
 }
 
 void writeOneMotor(int iMotor, int iValue){
@@ -124,62 +124,163 @@ void writeOneMotor(int iMotor, int iValue){
     else{Serial.println("Not a recongnized motor value!");}
 }
 
+//void writeVerticalWave(int iValue){
+//    analogWrite(_A1 ,iValue);
+//    analogWrite(_B1, iValue);
+//    analogWrite(_C1, iValue);
+//    analogWrite(_A7, 0);
+//    analogWrite(_B7, 0);
+//    analogWrite(_C7, 0);
+//    delay(500);
+//    
+//    analogWrite(_A2, iValue);
+//    analogWrite(_B2, iValue);
+//    analogWrite(_C2, iValue);
+//    analogWrite(_A1, 0);
+//    analogWrite(_B1, 0);
+//    analogWrite(_C1, 0);
+//    delay(500);
+//    
+//    analogWrite(_A3, iValue);
+//    analogWrite(_B3, iValue);
+//    analogWrite(_C3, iValue);
+//    analogWrite(_A2, 0);
+//    analogWrite(_B2, 0);
+//    analogWrite(_C2, 0);
+//    delay(500);
+//    
+//    analogWrite(_A4, iValue);
+//    analogWrite(_B4, iValue);
+//    analogWrite(_C4, iValue);
+//    analogWrite(_A3, 0);
+//    analogWrite(_B3, 0);
+//    analogWrite(_C3, 0);
+//    delay(500);
+//    
+//    analogWrite(_A5, iValue);
+//    analogWrite(_B5, iValue);
+//    analogWrite(_C5, iValue);
+//    analogWrite(_A4, 0);
+//    analogWrite(_B4, 0);
+//    analogWrite(_C4, 0);
+//    delay(500);
+//    
+//    analogWrite(_A6, iValue);
+//    analogWrite(_B6, iValue);
+//    analogWrite(_C6, iValue);
+//    analogWrite(_A5, 0);
+//    analogWrite(_B5, 0);
+//    analogWrite(_C5, 0);
+//    delay(500);
+//    
+//    analogWrite(_A7, iValue);
+//    analogWrite(_B7, iValue);
+//    analogWrite(_C7, iValue);
+//    analogWrite(_A6, 0);
+//    analogWrite(_B6, 0);
+//    analogWrite(_C6, 0);
+//    delay(500);
+//}
+
 void writeVerticalWave(int iValue){
-    analogWrite(_A1 ,iValue);
-    analogWrite(_B1, iValue);
-    analogWrite(_C1, iValue);
+    analogWrite(_A1 ,(0.33)*iValue);
+    analogWrite(_B1, (0.33)*iValue);
+    analogWrite(_C1, (0.33)*iValue);
+    analogWrite(_A2 ,(0.67)*iValue);
+    analogWrite(_B2, (0.67)*iValue);
+    analogWrite(_C2, (0.67)*iValue);
+    analogWrite(_A3 ,iValue);
+    analogWrite(_B3, iValue);
+    analogWrite(_C3, iValue);
     analogWrite(_A7, 0);
     analogWrite(_B7, 0);
     analogWrite(_C7, 0);
-    delay(1000);
-    
-    analogWrite(_A2, iValue);
-    analogWrite(_B2, iValue);
-    analogWrite(_C2, iValue);
+    delay(500);
+
+    analogWrite(_A2 ,(0.33)*iValue);
+    analogWrite(_B2, (0.33)*iValue);
+    analogWrite(_C2, (0.33)*iValue);
+    analogWrite(_A3 ,(0.67)*iValue);
+    analogWrite(_B3, (0.67)*iValue);
+    analogWrite(_C3, (0.67)*iValue);
+    analogWrite(_A4 ,iValue);
+    analogWrite(_B4, iValue);
+    analogWrite(_C4, iValue);
     analogWrite(_A1, 0);
     analogWrite(_B1, 0);
     analogWrite(_C1, 0);
-    delay(1000);
-    
-    analogWrite(_A3, iValue);
-    analogWrite(_B3, iValue);
-    analogWrite(_C3, iValue);
+    delay(500);
+
+    analogWrite(_A3 ,(0.33)*iValue);
+    analogWrite(_B3, (0.33)*iValue);
+    analogWrite(_C3, (0.33)*iValue);
+    analogWrite(_A4 ,(0.67)*iValue);
+    analogWrite(_B4, (0.67)*iValue);
+    analogWrite(_C4, (0.67)*iValue);
+    analogWrite(_A5 ,iValue);
+    analogWrite(_B5, iValue);
+    analogWrite(_C5, iValue);
     analogWrite(_A2, 0);
     analogWrite(_B2, 0);
     analogWrite(_C2, 0);
-    delay(1000);
-    
-    analogWrite(_A4, iValue);
-    analogWrite(_B4, iValue);
-    analogWrite(_C4, iValue);
+    delay(500);
+
+   analogWrite(_A4 ,(0.33)*iValue);
+    analogWrite(_B4, (0.33)*iValue);
+    analogWrite(_C4, (0.33)*iValue);
+    analogWrite(_A5 ,(0.67)*iValue);
+    analogWrite(_B5, (0.67)*iValue);
+    analogWrite(_C5, (0.67)*iValue);
+    analogWrite(_A6,iValue);
+    analogWrite(_B6, iValue);
+    analogWrite(_C6, iValue);
     analogWrite(_A3, 0);
     analogWrite(_B3, 0);
     analogWrite(_C3, 0);
-    delay(1000);
-    
-    analogWrite(_A5, iValue);
-    analogWrite(_B5, iValue);
-    analogWrite(_C5, iValue);
+    delay(500);
+
+    analogWrite(_A5 ,(0.33)*iValue);
+    analogWrite(_B5, (0.33)*iValue);
+    analogWrite(_C5, (0.33)*iValue);
+    analogWrite(_A6 ,(0.67)*iValue);
+    analogWrite(_B6, (0.67)*iValue);
+    analogWrite(_C6, (0.67)*iValue);
+    analogWrite(_A7 ,iValue);
+    analogWrite(_B7, iValue);
+    analogWrite(_C7, iValue);
     analogWrite(_A4, 0);
     analogWrite(_B4, 0);
     analogWrite(_C4, 0);
-    delay(1000);
-    
-    analogWrite(_A6, iValue);
-    analogWrite(_B6, iValue);
-    analogWrite(_C6, iValue);
+    delay(500);
+
+    analogWrite(_A6 ,(0.33)*iValue);
+    analogWrite(_B6, (0.33)*iValue);
+    analogWrite(_C6, (0.33)*iValue);
+    analogWrite(_A7 ,(0.67)*iValue);
+    analogWrite(_B7, (0.67)*iValue);
+    analogWrite(_C7, (0.67)*iValue);
+    analogWrite(_A1 ,iValue);
+    analogWrite(_B1, iValue);
+    analogWrite(_C1, iValue);
     analogWrite(_A5, 0);
     analogWrite(_B5, 0);
     analogWrite(_C5, 0);
-    delay(1000);
-    
-    analogWrite(_A7, iValue);
-    analogWrite(_B7, iValue);
-    analogWrite(_C7, iValue);
+    delay(500);
+
+    analogWrite(_A7 ,(0.33)*iValue);
+    analogWrite(_B7, (0.33)*iValue);
+    analogWrite(_C7, (0.33)*iValue);
+    analogWrite(_A1 ,(0.67)*iValue);
+    analogWrite(_B1, (0.67)*iValue);
+    analogWrite(_C1, (0.67)*iValue);
+    analogWrite(_A2 ,iValue);
+    analogWrite(_B2, iValue);
+    analogWrite(_C2, iValue);
     analogWrite(_A6, 0);
     analogWrite(_B6, 0);
     analogWrite(_C6, 0);
-    delay(1000);
+    delay(500);
+  
 }
 
 void writeHorizontalWave(int iValue){
@@ -198,7 +299,7 @@ void writeHorizontalWave(int iValue){
     analogWrite(_C5, 0);
     analogWrite(_C6, 0);
     analogWrite(_C7, 0);
-    delay(1000);
+    delay(500);
     
     analogWrite(_B1, iValue);
     analogWrite(_B2, iValue);
@@ -214,7 +315,7 @@ void writeHorizontalWave(int iValue){
     analogWrite(_A5, 0);
     analogWrite(_A6, 0);
     analogWrite(_A7, 0);
-    delay(1000);
+    delay(500);
     
     analogWrite(_C1, iValue);
     analogWrite(_C2, iValue);
@@ -230,7 +331,7 @@ void writeHorizontalWave(int iValue){
     analogWrite(_B5, 0);
     analogWrite(_B6, 0);
     analogWrite(_B7, 0);
-    delay(1000);
+    delay(500);
     
 }
 
@@ -249,7 +350,7 @@ void writeStarburst(int iValue){
     analogWrite(_B7, 0);
     analogWrite(_C7, 0);
 
-    delay(1000);
+    delay(500);
     
     analogWrite(_A3, iValue);
     analogWrite(_C3, iValue);
@@ -261,7 +362,7 @@ void writeStarburst(int iValue){
     analogWrite(_A4, 0);
     analogWrite(_C4, 0);
     
-    delay(1000);
+    delay(500);
     
     analogWrite(_A2, iValue);
     analogWrite(_B2, iValue);
@@ -274,7 +375,7 @@ void writeStarburst(int iValue){
     analogWrite(_A5, 0);
     analogWrite(_C5, 0);
     
-    delay(1000);
+    delay(500);
 
     analogWrite(_A1, iValue);
     analogWrite(_B1, iValue);
@@ -289,7 +390,7 @@ void writeStarburst(int iValue){
     analogWrite(_B6, 0);
     analogWrite(_C6, 0);
 
-    delay(1000);
+    delay(500);
   
 }
 
@@ -299,7 +400,7 @@ void writeSnake(int iValue){
     analogWrite(_A2, iValue);
     analogWrite(_B1, iValue);
     analogWrite(_B2, iValue);
-    delay(1000);
+    delay(500);
 
     analogWrite(_A1, 0);
     analogWrite(_A2, 0);
@@ -307,7 +408,7 @@ void writeSnake(int iValue){
     analogWrite(_B3, iValue);
     analogWrite(_C2, iValue);
     analogWrite(_C3, iValue);
-    delay(1000);
+    delay(500);
 
     analogWrite(_B2, 0);
     analogWrite(_C2, 0);
@@ -315,7 +416,7 @@ void writeSnake(int iValue){
     analogWrite(_B4, iValue);
     analogWrite(_A3, iValue);
     analogWrite(_A4, iValue);
-    delay(1000);
+    delay(500);
 
     analogWrite(_B3, 0);
     analogWrite(_A3, 0);
@@ -323,7 +424,7 @@ void writeSnake(int iValue){
     analogWrite(_B5, iValue);
     analogWrite(_C4, iValue);
     analogWrite(_C5, iValue);
-    delay(1000);
+    delay(500);
 
     analogWrite(_C5, 0);
     analogWrite(_C4, 0);
@@ -331,7 +432,7 @@ void writeSnake(int iValue){
     analogWrite(_B6, iValue);
     analogWrite(_A5, iValue);
     analogWrite(_A6, iValue);
-    delay(1000);
+    delay(500);
     
     analogWrite(_B5, 0);
     analogWrite(_A5, 0);
@@ -339,13 +440,13 @@ void writeSnake(int iValue){
     analogWrite(_B7, iValue);
     analogWrite(_C6, iValue);
     analogWrite(_C7, iValue);
-    delay(1000);
+    delay(500);
 
     analogWrite(_C7, 0);
     analogWrite(_C6, 0);
     analogWrite(_A6, iValue);
     analogWrite(_A7, iValue);
-    delay(1000); 
+    delay(500); 
   
 }
 

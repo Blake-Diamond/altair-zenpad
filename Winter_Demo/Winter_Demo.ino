@@ -73,10 +73,13 @@ void loop(void)
 
   // Some data was found, its in the buffer
   Serial.print(("[Recv] ")); 
-  Serial.print("Last Command:");
-  Serial.print(lastCMD[0],HEX);
-  Serial.print(lastCMD[1],HEX);
-  Serial.println(lastCMD[2],HEX);
+//  Serial.print("Last Command:");
+//  Serial.print(lastCMD[0],HEX);
+//  Serial.print(lastCMD[1],HEX);
+//  Serial.println(lastCMD[2],HEX);
+
+//TODO: ONE IDEA - set up an interrupt on the RTS pin coming from the Bluetooth,
+//so that it stops whatever it was doing and receives the command
   
   //Custom Massage
   if(ble.buffer[0] == 0x01 ||(ble.buffer[0] != 0x01 && lastCMD[0] == 0x01)){
