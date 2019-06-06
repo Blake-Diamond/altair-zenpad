@@ -124,13 +124,13 @@ void loop(void)
       Serial.print(intensity);
       Serial.println(" ");
      
-      if(ble.buffer[1] == 0x01){
+      if(massageRoutine == 0x01){
         //Horizontal Wave
         Serial.println("Horizontal Wave");
-        writeHorizontalWave(intensity);
-        //return;
+        writeMassagePattern(massageRoutine,intensity);
+        checkContinue(massageRoutine,intensity);        //return;
       }
-      else if(ble.buffer[1] == 0x02){
+      else if(massageRoutine == 0x02){
         //Vertical Wave
         writeMassagePattern(massageRoutine,intensity);
         checkContinue(massageRoutine,intensity);
@@ -144,19 +144,21 @@ void loop(void)
 //          ble.waitForOK();
 //        }
       }
-      else if(ble.buffer[1] == 0x03){
+      else if(massageRoutine == 0x03){
         //Starburst
         Serial.println("Starburst");
-        writeStarburst(intensity);
+        writeMassagePattern(massageRoutine,intensity);
+        checkContinue(massageRoutine,intensity);
         //return;
       }
-      else if(ble.buffer[1] == 0x04){
+      else if(massageRoutine == 0x04){
         //Snake Pattern
         Serial.println("Snake Pattern");
-        writeSnake(intensity);
+        writeMassagePattern(massageRoutine,intensity);
+        checkContinue(massageRoutine,intensity);
         //return;
       }
-      else if(ble.buffer[1] == 0xF0){
+      else if(massageRoutine == 0xF0){
         //STOP
         Serial.println("STOP BUTTON");
         stopAllMotors();
