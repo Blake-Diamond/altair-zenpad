@@ -1,13 +1,12 @@
 # UC Santa Barbara - ECE Deparrtment 
 # EE Capstone 2018-2019
 
-https://capstone.engineering.ucsb.edu/projects/altair-zenpad
 
 ### Contributors: Evan Blasband, Blake Diamond, Adam Gulliver, Zack Klebanoff
 
-This repository contains all of our arduino and android studio code for Altair Zenpad, a smart massage pad that you can control from your fingertips.
+https://capstone.engineering.ucsb.edu/projects/altair-zenpad
 
-There are 3 imporant aspect of this respository that contiain all of the necessary reference documents for future development and use of the ZenPad, described below:
+This repository contains all of our arduino and android studio code for Altair Zenpad, a smart massage pad that you can control from your fingertips. There are 3 imporant aspect of this respository that contiain all of the necessary reference documents for future development and use of the ZenPad, described below:
 
 ## Hardware
 
