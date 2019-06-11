@@ -1,4 +1,4 @@
-# UC Santa Barbara - ECE Deparrtment 
+# UC Santa Barbara - ECE Department 
 # EE Capstone 2018-2019
 
 
