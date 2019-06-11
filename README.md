@@ -1,5 +1,5 @@
 # UC Santa Barbara - ECE Department 
-# EE Capstone 2018-2019
+## EE Capstone 2018-2019
 
 
 ### Contributors: Evan Blasband, Blake Diamond, Adam Gulliver, Zack Klebanoff
